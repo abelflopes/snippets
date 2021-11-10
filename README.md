@@ -28,4 +28,4 @@ const sequentialPromiseAll = (
 await sequentialPromiseAll([dummyFn, dummyFn, dummyFn]);
 ```
 
-[https://codepen.io/abelflopes/pen/PoKayWy](Codepen)
+[Codepen](https://codepen.io/abelflopes/pen/PoKayWy)
