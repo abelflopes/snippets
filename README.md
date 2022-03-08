@@ -56,3 +56,46 @@ const X: CommonIntersection<I1, I2> = {
   z: 2,
 };
 ```
+
+
+## Webpack plugin template
+
+```ts
+/* eslint-disable @typescript-eslint/no-var-requires */
+import { Compiler } from "webpack";
+import { log, chalk } from "@advicefront/log";
+
+export type CustomWebpackPluginOptions = {
+  /* options here */
+};
+
+export class CustomWebpackPlugin {
+  private options: CustomWebpackPluginOptions;
+
+  constructor(options: CustomWebpackPluginOptions) {
+    this.options = options;
+  }
+
+  /**
+   * Apply function (called by webpack)
+   * Webpack compiler docs: https://webpack-v3.jsx.app/api/compiler/
+   * @param compiler Compiler
+   */
+
+  public apply = (compiler: Compiler): void => {
+    // Display all hooks
+    Object.keys(compiler.hooks).forEach((hook) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      compiler.hooks[hook].tap("CustomWebpackPlugin", () => {
+        log(chalk.yellow(hook));
+      });
+    });
+
+    compiler.hooks.beforeCompile.tapPromise("CustomWebpackPlugin", async (): Promise<void> => {
+      /**
+       * Code to execute here
+       */
+    });
+  };
+}
+```
